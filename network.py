@@ -198,8 +198,17 @@ class Router:
         print('%s: routing table' % self)
         #TODO: print the routes as a two dimensional table for easy inspection
         # Currently the function just prints the route table as a dictionary
-        print(self.rt_tbl_D)
+        print('          Cost to  ')
+        print('        u v w x y z')
+        print('From 1  '+str(self.try_get_route_value(0,0))+' '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2))+' '+str(self.try_get_route_value(0,3))+' '+str(self.try_get_route_value(0,4))+' '+str(self.try_get_route_value(0,5))+' ')
+        print('From 2  '+str(self.try_get_route_value(1,0))+' '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3))+' '+str(self.try_get_route_value(1,4))+' '+str(self.try_get_route_value(1,5))+' ')
+        print('From 3  '+str(self.try_get_route_value(2,0))+' '+str(self.try_get_route_value(2,1))+' '+str(self.try_get_route_value(2,2))+' '+str(self.try_get_route_value(2,3))+' '+str(self.try_get_route_value(2,4))+' '+str(self.try_get_route_value(2,5))+' ')
         
+    def try_get_route_value(self, keyOne, keyTwo):
+        try:
+            return str(self.rt_tbl_D[keyOne][keyTwo])
+        except:
+            return '~'
                 
     ## thread target for the host to keep forwarding data
     def run(self):
