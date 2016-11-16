@@ -94,8 +94,21 @@ class NetworkPacket:
         data_S = byte_S[NetworkPacket.dst_addr_S_length + NetworkPacket.prot_S_length : ]        
         return self(dst_addr, prot_S, data_S)
     
-
+#We can use this class to encode routing tables into a string format
+#Perhaps we can do something like "key1+key2+value+key1+key2+value...."
+class RouteMessage:
     
+    #This should take in the routing dictionary (or maybe just the part that needs updating)
+    def __init__(self, route_table):
+        self.route_table = route_table
+    
+    #Convert the routing dictionary to a string format to encode in control messages    
+    def to_byte_S(self):
+        return None
+    
+    #Get the routing dictionary form the string of bytes
+    def from_byte_S(self, byte_S):
+        return None    
 
 ## Implements a network host for receiving and transmitting data
 class Host:
