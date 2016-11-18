@@ -104,11 +104,43 @@ class RouteMessage:
     
     #Convert the routing dictionary to a string format to encode in control messages    
     def to_byte_S(self):
-        return None
+        byte_S = ""
+        for i in range(1, 3):
+            for j in range(0, 1):
+                v = self.get_value(j, i)
+                if v != -1:
+                    byte_S += str(j)
+                    byte_S += str(i)
+                    byte_S += str(v)
+                    print(v)
+        return byte_S
+                    
+    def get_value(self, keyOne, keyTwo):
+        try:
+            return self.route_table[keyTwo][keyOne]
+        except:
+            return -1
     
     #Get the routing dictionary form the string of bytes
+    @classmethod
     def from_byte_S(self, byte_S):
-        return None    
+        table = {}
+        keyOne = 0
+        keyTwo = 0
+        value = 0 
+        j = 0        
+        for i in byte_S:
+            if j == 0:
+                keyOne = int(i)
+                j=j+1
+            elif j == 1:
+                keyTwo = int(i)
+                j=j+1
+            elif j == 2:
+                value = int(i)
+                table = {keyTwo : {keyOne: value}}
+                j = 0
+        return self(table)   
 
 ## Implements a network host for receiving and transmitting data
 class Host:
@@ -207,6 +239,9 @@ class Router:
     #  @param p Packet containing routing information
     def update_routes(self, p, i):
         #TODO: add logic to update the routing tables and
+        m = RouteMessage.from_byte_S(p.data_S)
+        print('Received message')
+        print(m.route_table)
         # possibly send out routing updates
         print('%s: Received routing update %s from interface %d' % (self, p, i))
         
@@ -214,7 +249,9 @@ class Router:
     # @param i Interface number on which to send out a routing update
     def send_routes(self, i):
         # a sample route update packet
-        p = NetworkPacket(0, 'control', 'Sample routing table packet')
+        m = RouteMessage(self.rt_tbl_D)
+        
+        p = NetworkPacket(0, 'control', m.to_byte_S())
         try:
             #TODO: add logic to send out a route update
             print('%s: sending routing update "%s" from interface %d' % (self, p, i))
