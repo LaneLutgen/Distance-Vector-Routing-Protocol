@@ -1,0 +1,31 @@
+Created link Link Host_1-0 - Router_A-0
+Created link Link Router_A-1 - Router_B-0
+Created link Link Router_B-1 - Host_2-0
+Host_1: StartingHost_2: StartingRouter_A: StartingRouter_B: StartingNetwork: StartingRouter_A: sending routing update "000002Sample routing table packet" from interface 1
+
+
+
+
+
+Host_1: sending packet "000021Sample client data 0"Link Router_A-1 - Router_B-0: transmitting packet "000002Sample routing table packet" on Router_A 1 -> Router_B, 0Router_B: Received routing update 000002Sample routing table packet from interface 0
+
+
+Host_2: sending packet "000011Reply packet 0"
+Link Host_1-0 - Router_A-0: transmitting packet "000021Sample client data 0" on Host_1 0 -> Router_A, 0Router_A: forwarding packet "000021Sample client data 0" from interface 0 to 1
+
+Link Router_A-1 - Router_B-0: transmitting packet "000021Sample client data 0" on Router_A 1 -> Router_B, 0Router_B: forwarding packet "000021Sample client data 0" from interface 0 to 1
+
+Link Router_B-1 - Host_2-0: transmitting packet "000021Sample client data 0" on Router_B 1 -> Host_2, 0Host_2: received packet "000021Sample client data 0"
+Link Router_B-1 - Host_2-0: transmitting packet "000011Reply packet 0" on Host_2 0 -> Router_B, 1
+Router_B: forwarding packet "000011Reply packet 0" from interface 1 to 0
+
+Link Router_A-1 - Router_B-0: transmitting packet "000011Reply packet 0" on Router_B 0 -> Router_A, 1Router_A: forwarding packet "000011Reply packet 0" from interface 1 to 0
+
+Link Host_1-0 - Router_A-0: transmitting packet "000011Reply packet 0" on Router_A 0 -> Host_1, 0Host_1: received packet "000011Reply packet 0"
+
+Host_1: EndingHost_2: EndingRouter_B: EndingNetwork: EndingRouter_A: Ending
+
+
+
+
+All simulation threads joined
