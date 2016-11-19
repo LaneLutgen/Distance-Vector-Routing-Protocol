@@ -4,7 +4,7 @@ Created on Oct 12, 2016
 @author: mwitt_000
 '''
 import network_2
-import link
+import link_2
 import threading
 from time import sleep
 import sys
@@ -52,17 +52,17 @@ if __name__ == '__main__':
 
     
     #create a Link Layer to keep track of links between network nodes
-    link_layer = link.LinkLayer()
+    link_layer = link_2.LinkLayer()
     object_L.append(link_layer)
     
     #add all the links
-    link_layer.add_link(link.Link(client, 0, router_a, 0)) #1 to a
-    link_layer.add_link(link.Link(client2, 0, router_a, 2)) #2 to a
-    link_layer.add_link(link.Link(router_a, 1, router_b, 0)) #a to b
-    link_layer.add_link(link.Link(router_a, 3, router_c, 0)) #a to c
-    link_layer.add_link(link.Link(router_b, 1, router_d, 0)) #b to d
-    link_layer.add_link(link.Link(router_c, 1, router_d, 2)) #c to d    
-    link_layer.add_link(link.Link(router_d, 1, server, 0)) 
+    link_layer.add_link(link_2.Link(client, 0, router_a, 0)) #1 to a
+    link_layer.add_link(link_2.Link(client2, 0, router_a, 2)) #2 to a
+    link_layer.add_link(link_2.Link(router_a, 1, router_b, 0)) #a to b
+    link_layer.add_link(link_2.Link(router_a, 3, router_c, 0)) #a to c
+    link_layer.add_link(link_2.Link(router_b, 1, router_d, 0)) #b to d
+    link_layer.add_link(link_2.Link(router_c, 1, router_d, 2)) #c to d    
+    link_layer.add_link(link_2.Link(router_d, 1, server, 0)) 
     
     
     #start all the objects
