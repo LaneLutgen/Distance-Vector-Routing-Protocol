@@ -269,7 +269,7 @@ class Router:
         print('Interface     1 2 3')
         print('From 0        '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2))+' '+str(self.try_get_route_value(0,3)))
         print('From 1        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3)))
-        print('From 2        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3)))
+        print('From 2        '+str(self.try_get_route_value(2,1))+' '+str(self.try_get_route_value(2,2))+' '+str(self.try_get_route_value(2,3)))
                 
     def try_get_route_value(self, keyOne, keyTwo):
         try:
