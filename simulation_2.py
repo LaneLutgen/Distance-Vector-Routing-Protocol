@@ -3,7 +3,7 @@ Created on Oct 12, 2016
 
 @author: mwitt_000
 '''
-import network
+import network_2
 import link
 import threading
 from time import sleep
@@ -17,35 +17,35 @@ if __name__ == '__main__':
     object_L = [] #keeps track of objects, so we can kill their threads
     
     #create network hosts
-    client = network.Host(1)
+    client = network_2.Host(1)
     object_L.append(client)
-    client2 = network.Host(2)
+    client2 = network_2.Host(2)
     object_L.append(client2)    
-    server = network.Host(3)
+    server = network_2.Host(3)
     object_L.append(server)
     
     #create routers and routing tables for connected clients (subnets)
-    router_a_rt_tbl_D = {1: {0: 1},2: {1: 2}} # packet to host 1 through interface 0 for cost 1
-    router_a = network.Router(name='A', 
-                              intf_cost_L=[1,2,3,4], 
+    router_a_rt_tbl_D = {1: {0: 1},2: {2: 2}} # packet to host 1 through interface 0 for cost 1
+    router_a = network_2.Router(name='A', 
+                              intf_cost_L=[1,3,2,4], 
                               rt_tbl_D = router_a_rt_tbl_D, 
                               max_queue_size=router_queue_size)
     object_L.append(router_a)
     router_b_rt_tbl_D = {} # packet to host 2 through interface 1 for cost 3
-    router_b = network.Router(name='B', 
+    router_b = network_2.Router(name='B', 
                               intf_cost_L=[3,4], 
                               rt_tbl_D = router_b_rt_tbl_D, 
                               max_queue_size=router_queue_size)
     object_L.append(router_b)
     router_c_rt_tbl_D = {} # packet to host 2 through interface 1 for cost 3
-    router_c = network.Router(name='C', 
+    router_c = network_2.Router(name='C', 
                               intf_cost_L=[4,3], 
                               rt_tbl_D = router_c_rt_tbl_D, 
                               max_queue_size=router_queue_size)
     object_L.append(router_c)
-    router_d_rt_tbl_D = {3: {2: 1}} # packet to host 3 through interface 1 for cost 2
-    router_d = network.Router(name='D', 
-                              intf_cost_L=[4,3,1], 
+    router_d_rt_tbl_D = {3: {1: 1}} # packet to host 3 through interface 1 for cost 2
+    router_d = network_2.Router(name='D', 
+                              intf_cost_L=[4,1,3], 
                               rt_tbl_D = router_d_rt_tbl_D, 
                               max_queue_size=router_queue_size)
     object_L.append(router_d)
@@ -57,12 +57,12 @@ if __name__ == '__main__':
     
     #add all the links
     link_layer.add_link(link.Link(client, 0, router_a, 0)) #1 to a
-    link_layer.add_link(link.Link(client2, 0, router_a, 1)) #2 to a
-    link_layer.add_link(link.Link(router_a, 2, router_b, 0)) #a to b
+    link_layer.add_link(link.Link(client2, 0, router_a, 2)) #2 to a
+    link_layer.add_link(link.Link(router_a, 1, router_b, 0)) #a to b
     link_layer.add_link(link.Link(router_a, 3, router_c, 0)) #a to c
     link_layer.add_link(link.Link(router_b, 1, router_d, 0)) #b to d
-    link_layer.add_link(link.Link(router_c, 1, router_d, 1)) #c to d    
-    link_layer.add_link(link.Link(router_d, 2, server, 0)) 
+    link_layer.add_link(link.Link(router_c, 1, router_d, 2)) #c to d    
+    link_layer.add_link(link.Link(router_d, 1, server, 0)) 
     
     
     #start all the objects
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     
     #print the final routing tables
     for obj in object_L:
-        if str(type(obj)) == "<class 'network.Router'>":
+        if str(type(obj)) == "<class 'network_2.Router'>":
             obj.print_routes()
     
     #join all threads
