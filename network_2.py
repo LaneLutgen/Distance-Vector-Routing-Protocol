@@ -229,7 +229,12 @@ class Router:
             # TODO: Here you will need to implement a lookup into the 
             # forwarding table to find the appropriate outgoing interface
             # for now we assume the outgoing interface is (i+1)%2
+            dst = p.dst_addr
+            m = RouteMessage(self.rt_tbl_D)
+            #Determine which section of the route table to look at here.
+            #inter = lowest cost interface to destination
             self.intf_L[(i+1)].put(p.to_byte_S(), 'out', True)
+            #self.intf_L[inter].put(p.to_byte_S(), 'out', True) 
             print('%s: forwarding packet "%s" from interface %d to %d' % (self, p, i, (i+1)))
         except queue.Full:
             print('%s: packet "%s" lost on interface %d' % (self, p, i))
@@ -241,9 +246,10 @@ class Router:
         #TODO: add logic to update the routing tables and
         m = RouteMessage.from_byte_S(p.data_S)
         print('Received message')
-        print(m.route_table)
+        #print(m.route_table)
         # possibly send out routing updates
-        print('%s: Received routing update %s from interface %d' % (self, p, i))
+        #print('%s: Received routing update %s from interface %d' % (self, p, i))
+        self.rt_tbl_D = m.to_byte_S() #Not sure if this is correct
         
     ## send out route update
     # @param i Interface number on which to send out a routing update
@@ -266,11 +272,10 @@ class Router:
         #TODO: print the routes as a two dimensional table for easy inspection
         # Currently the function just prints the route table as a dictionary
         print('           Cost to Host ')
-        print('Interface     1 2 3')
-        print('From 0        '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2))+' '+str(self.try_get_route_value(0,3)))
-        print('From 1        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3)))
-        print('From 2        '+str(self.try_get_route_value(2,1))+' '+str(self.try_get_route_value(2,2))+' '+str(self.try_get_route_value(2,3)))
-                
+        print('Interface     1 2 3 4')
+        print('To 1          '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2))+' '+str(self.try_get_route_value(0,3))+' '+str(self.try_get_route_value(0,4)))
+        print('To 2          '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3))+' '+str(self.try_get_route_value(0,4)))
+        print('To 3          '+str(self.try_get_route_value(2,1))+' '+str(self.try_get_route_value(2,2))+' '+str(self.try_get_route_value(2,3))+' '+str(self.try_get_route_value(0,4)))
     def try_get_route_value(self, keyOne, keyTwo):
         try:
             return str(self.rt_tbl_D[keyTwo][keyOne])
