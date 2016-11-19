@@ -266,9 +266,10 @@ class Router:
         #TODO: print the routes as a two dimensional table for easy inspection
         # Currently the function just prints the route table as a dictionary
         print('           Cost to Host ')
-        print('Interface     1 2')
-        print('From 0        '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2)))
-        print('From 1        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2)))
+        print('Interface     1 2 3')
+        print('From 0        '+str(self.try_get_route_value(0,1))+' '+str(self.try_get_route_value(0,2))+' '+str(self.try_get_route_value(0,3)))
+        print('From 1        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3)))
+        print('From 2        '+str(self.try_get_route_value(1,1))+' '+str(self.try_get_route_value(1,2))+' '+str(self.try_get_route_value(1,3)))
                 
     def try_get_route_value(self, keyOne, keyTwo):
         try:
